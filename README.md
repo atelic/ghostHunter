@@ -36,7 +36,7 @@ Points        | Tag           | Functionality                       | Requires
 7             | Special item  | Item can kill ghost                 |
 5 - 15        | Stems         | Killing a ghost takes steps         |
 3             | Ignore        | User can ignore ghost in some way   | Proximity
-5             | Money         | Some kind of money system           | 
+5             | Money         | Some kind of money system           |
 5             | Costview      | Features that cost money appear     | Money
 5             | Ongoing       | Some feature has an ongoing cost    | Money
 5             | Bombs         | You can find/buy ghost bombs        |
