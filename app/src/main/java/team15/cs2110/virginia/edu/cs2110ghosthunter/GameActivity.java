@@ -8,13 +8,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
-
-public class MainActivity extends ActionBarActivity {
+public class GameActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.game);
     }
 
 
@@ -38,19 +37,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void playButtonClicked(View button) {
-        // Create an intent to associate button clicked with Popup class
-        Intent intent = new Intent (this, GameActivity.class);
-        this.startActivity(intent);
-        Log.d("2110", "The playButton was clicked"); //d=debug message.   format: tag + message
-    }
-
-    public void scoresButtonClicked(View button) {
-        // Create an intent to associate button clicked with Popup class
-        Intent intent = new Intent (this, ScoresActivity.class);
-        this.startActivity(intent);
-        Log.d("2110", "The playButton was clicked"); //d=debug message.   format: tag + message
     }
 }
