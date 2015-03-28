@@ -2,11 +2,11 @@
 A really lame game for CS class
 
 ## Required functionality:
-  - Splash screen showing:
+  <s>- Splash screen showing:
     - All team names
     - UVA CS2110 Spring 2015
     - Some kind of logo or name
-    - Shoutout to someone who gave a lot of help (if applicable)
+    - Shoutout to someone who gave a lot of help (if applicable)</s>
   - See the user/character on the screen. Must move by one of the following:
     - Buttons (e.g. up, down, left, right) to move the user/character
     - Use the android accelerometer (tilting to move the user/character)
