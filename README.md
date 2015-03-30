@@ -19,11 +19,6 @@ A really lame game for CS class
   - Keep track of some sort of progress statistics (points, kills, etc)
     - Must be displayed
 
-  - This is going to be easy because
-    - We are cool
-    - We are awesome
-    - We are the best
-
 #### Another 50 points of optional requirments must be implemented to get full credit
 
 ### Optional Functionality:
