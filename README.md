@@ -2,11 +2,11 @@
 A really lame game for CS class
 
 ## Required functionality:
-  - Splash screen showing:
-    - All team names
-    - UVA CS2110 Spring 2015
-    - Some kind of logo or name
-    - Shoutout to someone who gave a lot of help (if applicable)
+  - ~~Splash screen showing:~~
+    - ~~All team names~~
+    - ~~UVA CS2110 Spring 2015~~
+    - ~~Some kind of logo or name~~
+    - ~~Shoutout to someone who gave a lot of help (if applicable)~~
   - See the user/character on the screen. Must move by one of the following:
     - Buttons (e.g. up, down, left, right) to move the user/character
     - Use the android accelerometer (tilting to move the user/character)
@@ -18,11 +18,6 @@ A really lame game for CS class
   - Technique for killing ghosts
   - Keep track of some sort of progress statistics (points, kills, etc)
     - Must be displayed
-
-  - This is going to be easy because
-    - We are cool
-    - We are awesome
-    - We are the best
 
 #### Another 50 points of optional requirments must be implemented to get full credit
 
