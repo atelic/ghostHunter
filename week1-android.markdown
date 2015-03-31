@@ -3,10 +3,10 @@ Week 1
 
 ## Roles:
 
-Project Manager               : Eric
-Software Architect            : Jeff
-User Interface Designer       : Javan
-Quality Assurance Manager     : Mike
+Project Manager               : Eric    <br/>
+Software Architect            : Jeff    <br/> 
+User Interface Designer       : Javan   <br/>
+Quality Assurance Manager     : Mike    <br/>
 
 
 ## Goals for the app:
@@ -36,5 +36,6 @@ Definitely the splash screen with meeting all the reqs
 
 
 ## How do we make sure we all have the same code all the time?
+  - Got a dropbox folder 
 
 
