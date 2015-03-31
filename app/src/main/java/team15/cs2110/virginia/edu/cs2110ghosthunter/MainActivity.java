@@ -1,12 +1,11 @@
 package team15.cs2110.virginia.edu.cs2110ghosthunter;
 
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
+import android.os.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
+import android.content.*;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -41,16 +40,34 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void playButtonClicked(View button) {
-        // Create an intent to associate button clicked with Popup class
-        Intent intent = new Intent (this, GameActivity.class);
-        this.startActivity(intent);
-        Log.d("2110", "The playButton was clicked"); //d=debug message.   format: tag + message
+        //Find the button by its id: playButton
+        Button playButton = (Button)findViewById(R.id.playButton);
+
+        //Set a listener, and link that on click to the Game Activity
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GameActivity.class));
+            }
+        });
     }
 
-    public void scoresButtonClicked(View button) {
-        // Create an intent to associate button clicked with Popup class
-        Intent intent = new Intent (this, ScoresActivity.class);
-        this.startActivity(intent);
-        Log.d("2110", "The playButton was clicked"); //d=debug message.   format: tag + message
+    public MainActivity() {
+        super();
     }
+
+    //Links the "View high scores button" to the high scores page
+    public void scoresButtonClicked(View button) {
+        //Find the button by its id: scoresButton
+        Button scoreButton = (Button)findViewById(R.id.scoresButton);
+
+        //Set a listener, and link that on click to the Scores Activity
+        scoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ScoresActivity.class));
+            }
+        });
+    }
+
 }
