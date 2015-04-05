@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:text="High Scores"
         android:id="@+id/scoresButton"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="110dp"
         android:clickable="true"
         android:onClick="scoresButtonClicked"
         android:layout_alignParentBottom="true"

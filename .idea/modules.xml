@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GhostHunterProject.iml" filepath="$PROJECT_DIR$/GhostHunterProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ghostHunter.iml" filepath="$PROJECT_DIR$/ghostHunter.iml" />
     </modules>
   </component>
 </project>

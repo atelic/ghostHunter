@@ -6,6 +6,7 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 import android.content.*;
+import android.media.*;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -14,6 +15,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.Backbeat);
+//        mp.start();
     }
 
 

@@ -2,40 +2,72 @@ package team15.cs2110.virginia.edu.cs2110ghosthunter;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
+import android.view.*;
+import android.widget.ImageView;
+
 
 public class GameActivity extends ActionBarActivity {
+
+    Hello h;
+    float f;
+    float score;
+    ImageView image;
+    ImageView ghost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
+
+        image = (ImageView) this.findViewById(R.id.img);
     }
 
+    /*
+        D-PAD FUNCTIONALITY
+     */
+    public void upButtonClicked(View v){
+        image.setX(image.getX());
+        f = image.getY() - 20;
+        Log.d("Up", "new position:" + f );
+        image.setY(f);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void downButtonClicked(View v){
+        image.setX(image.getX());
+        f = image.getY() + 20;
+        Log.d("Down", "new position:" + f );
+        image.setY(f);
     }
+
+    public void rightButtonClicked(View v){
+        image.setY(image.getY());
+        f = image.getX() + 20;
+        Log.d("Right", "new position: " + f);
+        image.setX(f);
+    }
+
+    public void leftButtonClicked(View v){
+        image.setY(image.getY());
+        f = image.getX() - 20;
+        Log.d("Left", "new position: " + f);
+        image.setX(f);
+    }
+
+    /*
+     *  Should make a ghost disappear
+     */
+    public void killGhost(View v){
+        ghost = (ImageView) this.findViewById((R.id.ghost));
+
+        ghost.setImageDrawable(null);
+        ghost.setImageBitmap(null);
+        ghost.setImageResource(android.R.color.transparent);
+
+        Log.d("Kill", "This should kill the ghost");
+
+        this.score += 100;
+    }
+
 }
