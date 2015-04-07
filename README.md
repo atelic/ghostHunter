@@ -1,7 +1,7 @@
 # Ghost Hunter
 A really lame game for CS class
 
-## Required functionality:
+## ~~Required functionality:~~
   - ~~Splash screen showing:~~
     - ~~All team names~~
     - ~~UVA CS2110 Spring 2015~~
@@ -10,8 +10,8 @@ A really lame game for CS class
   - ~~See the user/character on the screen. Must move by one of the following:~~
     - ~~Buttons (e.g. up, down, left, right) to move the user/character~~
   
-  - Auto ~~generate~~ ghosts near user Needs to be auto-generated. Right now it's on startup
-    - Don't need to move after spawning
+  - ~~Auto ~~generate~~ ghosts near user Needs to be auto-generated. Right now it's on startup~~
+    - ~~Don't need to move after spawning~~
   - ~~Have a view of the world where the user and ghosts are both seen on the screen~~
 
   - ~~Technique for killing ghosts~~
