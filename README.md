@@ -14,10 +14,10 @@ A really lame game for CS class
     - Don't need to move after spawning
   - ~~Have a view of the world where the user and ghosts are both seen on the screen~~
 
-  - Technique for killing ghosts
+  - ~~Technique for killing ghosts~~
 
-  - Keep track of some sort of progress statistics (points, kills, etc)
-    - Must be displayed
+  - ~~Keep track of some sort of progress statistics (points, kills, etc)~~
+    - ~~Must be displayed~~
 
 #### Another 50 points of optional requirments must be implemented to get full credit
 
