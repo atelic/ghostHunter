@@ -10,7 +10,7 @@ A really lame game for CS class
   - ~~See the user/character on the screen. Must move by one of the following:~~
     - ~~Buttons (e.g. up, down, left, right) to move the user/character~~
   
-  - ~~Auto ~~generate~~ ghosts near user Needs to be auto-generated. Right now it's on startup~~
+  - ~~Auto generate ghosts near user~~
     - ~~Don't need to move after spawning~~
   - ~~Have a view of the world where the user and ghosts are both seen on the screen~~
 
@@ -26,7 +26,7 @@ A really lame game for CS class
 Points        | Tag           | Functionality                       | Requires
 ------------- | ------------  |-------------------------------------|-------------------|
 50            | Requirements  | Above                               |
-7             | Move          | Ghosts move on their own            |
+~~7~~         | Move          | Ghosts move on their own            |
 5             | Dangerous     | Close to ghost hurts user           |
 5             | Front         | A ghost's front is dangerous        | Move & dangerous
 3             | Back          | A ghost's back is vunerable         | Move
