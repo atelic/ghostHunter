@@ -1,6 +1,7 @@
 package team15.cs2110.virginia.edu.cs2110ghosthunter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
@@ -20,8 +21,10 @@ public class GameActivity extends ActionBarActivity {
     Hello h;
     float f;
     float score;
+    float highScore = 0;
     public ImageView player;
     public ImageView ghost;
+    public ImageView loot;
     public Canvas canvas;
     private playerMovement user;
     private double x;
@@ -31,12 +34,18 @@ public class GameActivity extends ActionBarActivity {
     private boolean gameOver;
     int health;
     Random rand = new Random();
-
+    SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = prefs.edit();
+    TextView highScores = (TextView)findViewById(R.id.textView4);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
+
+
+        //Set Highscores in ScoreView
+        highScores.setText("Highscore: " + prefs.getFloat("key",highScore));
 
         //5+ points for sound
         //Finds and starts music called beat_one.mp3 in /app/src/main/res/raw
@@ -47,7 +56,8 @@ public class GameActivity extends ActionBarActivity {
         player = (ImageView) this.findViewById(R.id.img);
         user = new playerMovement(player, player.getX(), player.getY());
         ghost = (ImageView) this.findViewById((R.id.ghost));
-        health = (ImageView) this.findViewById(R.id.healthView);
+        //loot = (ImageView) this.findViewById(R.id.loot);
+      //  health = (ImageView) this.findViewById(R.id.healthView);
 
 
 
@@ -161,8 +171,8 @@ public class GameActivity extends ActionBarActivity {
             this.score -= 20;
             this.health -= 10;
             //Update the health display
-            TextView textView = (TextView) findViewById(R.id.health);
-            textView.setText("Your health: " + this.health);
+      //      TextView textView = (TextView) findViewById(R.id.health);
+     //       textView.setText("Your health: " + this.health);
 
             //If health goes under 0, game over and redirect to home page
             if(this.health <= 0){
@@ -172,6 +182,17 @@ public class GameActivity extends ActionBarActivity {
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast.makeText(context, text, duration).show();
+
+
+                //Set Highscore
+                if (this.score > this.highScore) {
+                    this.highScore = this.score;
+                    editor.putFloat("key", highScore);
+                    editor.commit();
+
+                }
+
+
                 startActivity(new Intent(GameActivity.this, MainActivity.class));
             }
 
@@ -187,6 +208,7 @@ public class GameActivity extends ActionBarActivity {
             return false;
         }
     }
+
 
     public int checkDist(){
         float ghostX = ghost.getX();
@@ -243,6 +265,12 @@ public class GameActivity extends ActionBarActivity {
 
     }
 
+    public void dropLoot(View v) {
+
+    }
+
+
+
     //Saves health and score data between runs
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -260,4 +288,5 @@ public class GameActivity extends ActionBarActivity {
         this.health = savedInstanceState.getInt("Health");
         // ... recover more data
     }
+    
 }
