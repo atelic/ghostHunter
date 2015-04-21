@@ -17,6 +17,40 @@
         android:id="@+id/img"
         android:layout_above="@+id/b4" />
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/grenade"
+        android:focusable="false"
+        android:nestedScrollingEnabled="false"
+        android:src="@drawable/grenade"
+        android:layout_alignBottom="@+id/loot"
+        android:layout_toRightOf="@+id/score"
+        android:layout_toStartOf="@+id/b4"
+        android:layout_alignTop="@+id/loot"
+        android:layout_toLeftOf="@+id/b4" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Place Bomb"
+        android:id="@+id/placeBomb"
+        android:layout_below="@+id/b4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="placeBomb" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detonate"
+        android:id="@+id/detonate"
+        android:onClick="detonate"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/placeBomb"
+        android:layout_toEndOf="@+id/placeBomb" />
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -88,9 +122,19 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Health: "
-        android:id="@+id/healthView"
+        android:id="@+id/health"
         android:layout_above="@+id/b1"
         android:layout_toRightOf="@+id/b1"
         android:layout_toEndOf="@+id/b1"
         android:textColor="#fff" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/loot"
+        android:src="@drawable/loot"
+        android:layout_below="@+id/ghost"
+        android:layout_alignRight="@+id/b2"
+        android:layout_alignEnd="@+id/b2"
+        android:layout_marginTop="57dp" />
 </RelativeLayout>

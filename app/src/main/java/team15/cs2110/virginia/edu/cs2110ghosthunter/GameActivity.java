@@ -20,11 +20,13 @@ public class GameActivity extends ActionBarActivity {
 
     Hello h;
     float f;
+    float f2;
     float score;
     float highScore = 0;
     public ImageView player;
     public ImageView ghost;
     public ImageView loot;
+    public ImageView grenade;
     public Canvas canvas;
     private playerMovement user;
     private double x;
@@ -34,9 +36,9 @@ public class GameActivity extends ActionBarActivity {
     private boolean gameOver;
     int health;
     Random rand = new Random();
-    SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = prefs.edit();
-    TextView highScores = (TextView)findViewById(R.id.textView4);
+    //SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+    //SharedPreferences.Editor editor = prefs.edit();
+    //TextView highScores = (TextView)findViewById(R.id.textView4);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class GameActivity extends ActionBarActivity {
 
 
         //Set Highscores in ScoreView
-        highScores.setText("Highscore: " + prefs.getFloat("key",highScore));
+        //highScores.setText("Highscore: " + prefs.getFloat("key",highScore));
 
         //5+ points for sound
         //Finds and starts music called beat_one.mp3 in /app/src/main/res/raw
@@ -56,8 +58,11 @@ public class GameActivity extends ActionBarActivity {
         player = (ImageView) this.findViewById(R.id.img);
         user = new playerMovement(player, player.getX(), player.getY());
         ghost = (ImageView) this.findViewById((R.id.ghost));
-        //loot = (ImageView) this.findViewById(R.id.loot);
-      //  health = (ImageView) this.findViewById(R.id.healthView);
+        loot = (ImageView) this.findViewById(R.id.loot);
+        grenade = (ImageView) this.findViewById((R.id.grenade));
+
+        loot.setVisibility(View.INVISIBLE);
+      //  health = (ImageView) this.findViewById(R.id.health);
 
 
 
@@ -99,6 +104,7 @@ public class GameActivity extends ActionBarActivity {
         else if (tmp == 4)
             ghost.setY(ghost.getX() - movementInt);
 
+
     }
 
     /*
@@ -110,6 +116,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Up", "new position:" + f );
         player.setY(f);
         moveGhost();
+   //     bombExplode(v);
         if(!dangerous()){
             proximity();
         }
@@ -121,6 +128,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Down", "new position:" + f );
         player.setY(f);
         moveGhost();
+   //     bombExplode(v);
         if(!dangerous()){
             proximity();
         }
@@ -132,6 +140,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Right", "new position: " + f);
         player.setX(f);
         moveGhost();
+   //     bombExplode(v);
         if(!dangerous()){
             proximity();
         }
@@ -143,6 +152,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Left", "new position: " + f);
         player.setX(f);
         moveGhost();
+   //     bombExplode(v);
         if(!dangerous()){
             proximity();
         }
@@ -167,12 +177,12 @@ public class GameActivity extends ActionBarActivity {
     //getting too close to a ghost hurts the user
     //Also handles health system and game over stuff
     public boolean dangerous(){
-        if(checkDist() <= 10){
+        if(checkDist() <= 40){
             this.score -= 20;
             this.health -= 10;
             //Update the health display
-      //      TextView textView = (TextView) findViewById(R.id.health);
-     //       textView.setText("Your health: " + this.health);
+            TextView textView = (TextView) findViewById(R.id.health);
+            textView.setText("Your health: " + this.health);
 
             //If health goes under 0, game over and redirect to home page
             if(this.health <= 0){
@@ -185,15 +195,15 @@ public class GameActivity extends ActionBarActivity {
 
 
                 //Set Highscore
-                if (this.score > this.highScore) {
+               /* if (this.score > this.highScore) {
                     this.highScore = this.score;
                     editor.putFloat("key", highScore);
                     editor.commit();
 
-                }
+                }*/
 
 
-                startActivity(new Intent(GameActivity.this, MainActivity.class));
+                startActivity(new Intent(GameActivity.this, ScoresActivity.class));
             }
 
             //This sends the Toast
@@ -263,9 +273,70 @@ public class GameActivity extends ActionBarActivity {
         TextView textView = (TextView) findViewById(R.id.score);
         textView.setText("Your score: " + this.score);
 
+
     }
 
     public void dropLoot(View v) {
+        Log.d("Dead", "This should drop loot on the ghost's death");
+
+         {
+            int xLocation = (int) ghost.getX();
+            int yLocation = (int) ghost.getY();
+
+            loot.setX(xLocation);
+            loot.setY(yLocation);
+            loot.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    public void collisionBox(View v, View y) {
+
+    }
+
+    public void placeBomb(View v){
+
+        grenade.setVisibility(View.VISIBLE);
+
+        Random rand2 = new Random();
+        int xmin = 20;
+        int xmax = 550;
+        int ymin = 20;
+        int ymax = 1100;
+
+        float x2 = rand2.nextInt((xmax - xmin) + 1) + xmin;
+
+        float y2 = rand2.nextInt((ymax - ymin) + 1) + ymin;
+
+        grenade.setX(x2);
+        grenade.setY(y2);
+    }
+
+    public void getRidOfBomb(View v) {
+        grenade.setVisibility(View.INVISIBLE);
+    }
+
+    public int checkBombDist(){
+        float ghostX = ghost.getX();
+        float ghostY = ghost.getY();
+
+        float grenadeX = grenade.getX();
+        float grenadeY = grenade.getY();
+
+        int dist2 = (int) Math.sqrt(((grenadeX - ghostX) * (grenadeX - ghostX)) + ((grenadeY - ghostY) * (grenadeY - ghostY)));
+
+        return dist2;
+    }
+
+    public int detonate(View v){
+        if (checkBombDist() <= 50) {
+           killGhost(v);
+           getRidOfBomb(v);
+           return 1;
+        } else {
+           getRidOfBomb(v);
+           return 0;
+        }
 
     }
 
