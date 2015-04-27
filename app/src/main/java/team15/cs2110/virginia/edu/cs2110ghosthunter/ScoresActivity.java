@@ -7,15 +7,24 @@ import android.view.MenuItem;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
-/**
- * Created by eric on 3/27/15.
- */
+
 public class ScoresActivity extends ActionBarActivity {
+
+    public static TextView textViewScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scores);
+        Intent i = getIntent();
+        float passedScore = i.getExtras().getFloat("Score");
+        //int intScore = Integer.parseInt(passedScore);
+
+        TextView textView = (TextView) findViewById(R.id.highScore);
+        textView.setText("High score: " + passedScore);
+
     }
 
 

@@ -22,11 +22,13 @@ public class GameActivity extends ActionBarActivity {
     float f;
     float f2;
     float score;
+    float compareScore;
     float highScore = 0;
     public ImageView player;
     public ImageView ghost;
     public ImageView loot;
     public ImageView grenade;
+    public ImageView watermelon;
     public Canvas canvas;
     private playerMovement user;
     private double x;
@@ -36,9 +38,9 @@ public class GameActivity extends ActionBarActivity {
     private boolean gameOver;
     int health;
     Random rand = new Random();
-    //SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
-    //SharedPreferences.Editor editor = prefs.edit();
-    //TextView highScores = (TextView)findViewById(R.id.textView4);
+//    SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+//    SharedPreferences.Editor editor = prefs.edit();
+//    TextView highScores = (TextView)findViewById(R.id.highScore);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,41 +56,23 @@ public class GameActivity extends ActionBarActivity {
         MediaPlayer mp = MediaPlayer.create(this, R.raw.beat_one);
         mp.start();
 
-        //Grab the two images that start on the screen and assign to variables
+        //Grab the images that start on the screen and assign to variables
         player = (ImageView) this.findViewById(R.id.img);
         user = new playerMovement(player, player.getX(), player.getY());
         ghost = (ImageView) this.findViewById((R.id.ghost));
         loot = (ImageView) this.findViewById(R.id.loot);
-        grenade = (ImageView) this.findViewById((R.id.grenade));
-
         loot.setVisibility(View.INVISIBLE);
-      //  health = (ImageView) this.findViewById(R.id.health);
-
-
+        grenade = (ImageView) this.findViewById((R.id.grenade));
+        watermelon = (ImageView) this.findViewById(R.id.watermelon);
 
         //Just started so the game can't be over
         //and start health at 100
         this.gameOver = false;
         this.health = 100;
+        TextView textView = (TextView) findViewById(R.id.health);
+        textView.setText("Your health: " + this.health);
 
     }
-
-//    public void gameLoop(){
-//        while(!gameOver){
-//            float playerX = player.getX();
-//            float playerY = player.getY();
-//
-//            int randX = rand.nextInt() * 5;
-//            int randY = rand.nextInt() * 5;
-//
-//            float targetX = ghost.getX() + randX;
-//            float targetY = ghost.getY() + randY;
-//
-//            this.ghost.setX(targetX);
-//            this.ghost.setY(targetY);
-//        }
-//
-//    }
 
 
     //7 points
@@ -110,49 +94,64 @@ public class GameActivity extends ActionBarActivity {
     /*
         D-PAD FUNCTIONALITY
      */
+    int upClickCount = 0;
     public void upButtonClicked(View v){
         player.setX(player.getX());
-        f = player.getY() - 20;
+        f = player.getY() - 40;
         Log.d("Up", "new position:" + f );
         player.setY(f);
         moveGhost();
    //     bombExplode(v);
+        if(++upClickCount % 10 == 0){
+            healthDrop();
+        }
         if(!dangerous()){
             proximity();
         }
     }
 
+    int downClickCount = 0;
     public void downButtonClicked(View v){
         player.setX(player.getX());
-        f = player.getY() + 20;
+        f = player.getY() + 40;
         Log.d("Down", "new position:" + f );
         player.setY(f);
         moveGhost();
    //     bombExplode(v);
+        if(++downClickCount % 10 == 0){
+            healthDrop();
+        }
         if(!dangerous()){
             proximity();
         }
     }
-
+    int rightClickCount = 0;
     public void rightButtonClicked(View v){
         player.setY(player.getY());
-        f = player.getX() + 20;
+        f = player.getX() + 40;
         Log.d("Right", "new position: " + f);
         player.setX(f);
         moveGhost();
    //     bombExplode(v);
+        if(++rightClickCount % 10 == 0){
+            healthDrop();
+        }
         if(!dangerous()){
             proximity();
         }
     }
 
+    int leftClickCount = 0;
     public void leftButtonClicked(View v){
         player.setY(player.getY());
-        f = player.getX() - 20;
+        f = player.getX() - 40;
         Log.d("Left", "new position: " + f);
         player.setX(f);
         moveGhost();
    //     bombExplode(v);
+        if(++leftClickCount % 10 == 0){
+            healthDrop();
+        }
         if(!dangerous()){
             proximity();
         }
@@ -161,7 +160,7 @@ public class GameActivity extends ActionBarActivity {
     //5 points
     //Toasts if close to ghost but doesn't hurt user
     public boolean proximity(){
-        if(checkDist() <= 50 && checkDist() > 10){
+        if(checkDist() <= 100 && checkDist() > 50){
             //This sends the Toast
             Context context = getApplicationContext();
             CharSequence text = "You're getting close to a ghost! Be careful";
@@ -177,9 +176,9 @@ public class GameActivity extends ActionBarActivity {
     //getting too close to a ghost hurts the user
     //Also handles health system and game over stuff
     public boolean dangerous(){
-        if(checkDist() <= 40){
+        if(checkDist() <= 60){
             this.score -= 20;
-            this.health -= 10;
+            this.health -= 20;
             //Update the health display
             TextView textView = (TextView) findViewById(R.id.health);
             textView.setText("Your health: " + this.health);
@@ -187,28 +186,40 @@ public class GameActivity extends ActionBarActivity {
             //If health goes under 0, game over and redirect to home page
             if(this.health <= 0){
                 this.gameOver = true;
+
+                //Toast that you lost
                 Context context = getApplicationContext();
                 CharSequence text = "You lost all your health, game over!";
                 int duration = Toast.LENGTH_SHORT;
-
                 Toast.makeText(context, text, duration).show();
 
+                //Change to the high scores screen sending score with you
+                Intent i = new Intent(GameActivity.this , ScoresActivity.class);
+                i.putExtra("Score", this.score);
+                startActivity(i);
+
+
+                //Get the high score view, and parse it to an int
+                //TextView viewScore = ScoresActivity.textViewScore;
+                //String s = viewScore.getText().toString();
+                //TextView viewScore = (TextView) findViewById(R.id.highScore);
+                //String s = viewScore.getText().toString();
+//                if (!viewScore.equals("") && !viewScore.equals(".")){
+//                    this.highScore = Integer.parseInt(scoreValue);
+//                }
 
                 //Set Highscore
-               /* if (this.score > this.highScore) {
-                    this.highScore = this.score;
-                    editor.putFloat("key", highScore);
-                    editor.commit();
-
-                }*/
-
-
-                startActivity(new Intent(GameActivity.this, ScoresActivity.class));
+//                if (this.score > this.highScore) {
+//                    this.highScore = this.score;
+//                    TextView score = (TextView) findViewById(R.id.highScore);
+//                    score.setText("Your health: " + this.score);
+//
+//                }
             }
 
             //This sends the Toast
             Context context = getApplicationContext();
-            CharSequence text = "Ouch! Too close to a ghost. -20";
+            CharSequence text = "Ouch! Too close to a ghost. -10";
             int duration = Toast.LENGTH_SHORT;
 
             Toast.makeText(context, text, duration).show();
@@ -265,7 +276,7 @@ public class GameActivity extends ActionBarActivity {
         int duration = Toast.LENGTH_SHORT;
 
         Toast.makeText(context, text, duration).show();
-
+        dropLoot();
         //Move the ghost image
         makeGhost();
 
@@ -276,7 +287,7 @@ public class GameActivity extends ActionBarActivity {
 
     }
 
-    public void dropLoot(View v) {
+    public void dropLoot() {
         Log.d("Dead", "This should drop loot on the ghost's death");
 
          {
@@ -290,9 +301,17 @@ public class GameActivity extends ActionBarActivity {
 
     }
 
-    public void collisionBox(View v, View y) {
+    public void collectLoot(View v) {
+        Log.d("Score", "You collect a Bonus!");
 
+        loot.setVisibility(View.INVISIBLE);
+
+        this.score += 200;
+
+        TextView textView = (TextView) findViewById(R.id.score);
+        textView.setText("Your score: " + this.score);
     }
+
 
     public void placeBomb(View v){
 
@@ -341,6 +360,48 @@ public class GameActivity extends ActionBarActivity {
     }
 
 
+   //Health Drop
+    public void healthDrop() {
+
+        if (this.score % 200 == 0) {
+
+            int xmin = 20;
+            int xmax = 550;
+            int ymin = 20;
+            int ymax = 1100;
+
+            int x = rand.nextInt((xmax - xmin) + 1) + xmin;
+
+            int y = rand.nextInt((ymax - ymin) + 1) + ymin;
+
+            watermelon.setX(x);
+            watermelon.setY(y);
+
+            watermelon.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    //Health Pickup
+    public void healthPickup(View view) {
+
+        Log.d("Health", "Add 30 to health");
+
+        this.health += 30;
+
+        watermelon.setVisibility(View.INVISIBLE);
+
+        TextView textView = (TextView) this.findViewById(R.id.health);
+        textView.setText("Your Health: " + this.health);
+
+        Context context = getApplicationContext();
+        CharSequence text = "Bonus! Health +30";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast.makeText(context, text, duration).show();
+
+    }
+
 
     //Saves health and score data between runs
     @Override
@@ -359,5 +420,7 @@ public class GameActivity extends ActionBarActivity {
         this.health = savedInstanceState.getInt("Health");
         // ... recover more data
     }
+
+
     
 }

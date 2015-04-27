@@ -20,13 +20,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/splashScreenText1"
-        android:layout_alignLeft="@+id/splashScreenText1"
-        android:layout_alignStart="@+id/splashScreenText1"
-        android:layout_marginTop="134dp"
+        android:id="@+id/highScore"
         android:textColor="#ffffffff"
-        android:layout_alignRight="@+id/splashScreenText1"
-        android:layout_alignEnd="@+id/splashScreenText1" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
