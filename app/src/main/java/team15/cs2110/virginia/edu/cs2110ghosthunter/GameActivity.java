@@ -38,9 +38,6 @@ public class GameActivity extends ActionBarActivity {
     private boolean gameOver;
     int health;
     Random rand = new Random();
-//    SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
-//    SharedPreferences.Editor editor = prefs.edit();
-//    TextView highScores = (TextView)findViewById(R.id.highScore);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +98,6 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Up", "new position:" + f );
         player.setY(f);
         moveGhost();
-   //     bombExplode(v);
         if(++upClickCount % 10 == 0){
             healthDrop();
         }
@@ -117,7 +113,6 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Down", "new position:" + f );
         player.setY(f);
         moveGhost();
-   //     bombExplode(v);
         if(++downClickCount % 10 == 0){
             healthDrop();
         }
@@ -132,7 +127,6 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Right", "new position: " + f);
         player.setX(f);
         moveGhost();
-   //     bombExplode(v);
         if(++rightClickCount % 10 == 0){
             healthDrop();
         }
@@ -148,7 +142,6 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Left", "new position: " + f);
         player.setX(f);
         moveGhost();
-   //     bombExplode(v);
         if(++leftClickCount % 10 == 0){
             healthDrop();
         }
@@ -200,14 +193,6 @@ public class GameActivity extends ActionBarActivity {
 
 
                 //Get the high score view, and parse it to an int
-                //TextView viewScore = ScoresActivity.textViewScore;
-                //String s = viewScore.getText().toString();
-                //TextView viewScore = (TextView) findViewById(R.id.highScore);
-                //String s = viewScore.getText().toString();
-//                if (!viewScore.equals("") && !viewScore.equals(".")){
-//                    this.highScore = Integer.parseInt(scoreValue);
-//                }
-
                 //Set Highscore
 //                if (this.score > this.highScore) {
 //                    this.highScore = this.score;
@@ -422,5 +407,5 @@ public class GameActivity extends ActionBarActivity {
     }
 
 
-    
+
 }
