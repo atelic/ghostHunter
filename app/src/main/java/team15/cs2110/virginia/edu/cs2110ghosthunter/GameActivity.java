@@ -12,7 +12,9 @@ import android.widget.*;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
+import android.preference.PreferenceManager;
 
+import java.io.FileOutputStream;
 import java.util.Random;
 
 
@@ -38,12 +40,16 @@ public class GameActivity extends ActionBarActivity {
     private boolean gameOver;
     int health;
     Random rand = new Random();
+    SharedPreferences.Editor prefEditor;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefEditor = prefs.edit();
 
         //Set Highscores in ScoreView
         //highScores.setText("Highscore: " + prefs.getFloat("key",highScore));
@@ -98,6 +104,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Up", "new position:" + f );
         player.setY(f);
         moveGhost();
+   //     bombExplode(v);
         if(++upClickCount % 10 == 0){
             healthDrop();
         }
@@ -113,6 +120,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Down", "new position:" + f );
         player.setY(f);
         moveGhost();
+   //     bombExplode(v);
         if(++downClickCount % 10 == 0){
             healthDrop();
         }
@@ -127,6 +135,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Right", "new position: " + f);
         player.setX(f);
         moveGhost();
+   //     bombExplode(v);
         if(++rightClickCount % 10 == 0){
             healthDrop();
         }
@@ -142,6 +151,7 @@ public class GameActivity extends ActionBarActivity {
         Log.d("Left", "new position: " + f);
         player.setX(f);
         moveGhost();
+   //     bombExplode(v);
         if(++leftClickCount % 10 == 0){
             healthDrop();
         }
@@ -153,7 +163,7 @@ public class GameActivity extends ActionBarActivity {
     //5 points
     //Toasts if close to ghost but doesn't hurt user
     public boolean proximity(){
-        if(checkDist() <= 100 && checkDist() > 50){
+        if(checkDist() <= 250 && checkDist() > 120){
             //This sends the Toast
             Context context = getApplicationContext();
             CharSequence text = "You're getting close to a ghost! Be careful";
@@ -169,8 +179,8 @@ public class GameActivity extends ActionBarActivity {
     //getting too close to a ghost hurts the user
     //Also handles health system and game over stuff
     public boolean dangerous(){
-        if(checkDist() <= 60){
-            this.score -= 20;
+        if(checkDist() <= 120){
+            //this.score -= 20;
             this.health -= 20;
             //Update the health display
             TextView textView = (TextView) findViewById(R.id.health);
@@ -186,13 +196,26 @@ public class GameActivity extends ActionBarActivity {
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(context, text, duration).show();
 
-                //Change to the high scores screen sending score with you
                 Intent i = new Intent(GameActivity.this , ScoresActivity.class);
                 i.putExtra("Score", this.score);
                 startActivity(i);
+                //FileOutputStream fos = openFileOutput(ScoresActivity.HIGHSCORES,Context.MODE_PRIVATE );
+
+
+                float prevScore = prefs.getFloat("highScore", highScore);
+
+
 
 
                 //Get the high score view, and parse it to an int
+                //TextView viewScore = ScoresActivity.textViewScore;
+                //String s = viewScore.getText().toString();
+                //TextView viewScore = (TextView) findViewById(R.id.highScore);
+                //String s = viewScore.getText().toString();
+//                if (!viewScore.equals("") && !viewScore.equals(".")){
+//                    this.highScore = Integer.parseInt(scoreValue);
+//                }
+
                 //Set Highscore
 //                if (this.score > this.highScore) {
 //                    this.highScore = this.score;
@@ -204,7 +227,7 @@ public class GameActivity extends ActionBarActivity {
 
             //This sends the Toast
             Context context = getApplicationContext();
-            CharSequence text = "Ouch! Too close to a ghost. -10";
+            CharSequence text = "Ouch! Too close to a ghost. -20";
             int duration = Toast.LENGTH_SHORT;
 
             Toast.makeText(context, text, duration).show();
@@ -333,7 +356,7 @@ public class GameActivity extends ActionBarActivity {
     }
 
     public int detonate(View v){
-        if (checkBombDist() <= 50) {
+        if (checkBombDist() <= 150) {
            killGhost(v);
            getRidOfBomb(v);
            return 1;
@@ -407,5 +430,5 @@ public class GameActivity extends ActionBarActivity {
     }
 
 
-
+    
 }
