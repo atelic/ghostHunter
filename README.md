@@ -1,5 +1,4 @@
 # Ghost Hunter
-A really lame game for CS class
 
 ## Required functionality:
   - ~~Splash screen showing:~~
